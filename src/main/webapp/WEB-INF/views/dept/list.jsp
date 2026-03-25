@@ -24,7 +24,7 @@
 					<!-- getter의 이름 : getter 메서드에서 get을 빼고 ()를 빼고 남은 첫글자를 소문자로 변경 -->
 						<tr>
 							<td>${d.departmentId}</td>
-							<td>${d.departmentName}</td>
+							<td><a href="/dept/detail?departmentId=${d.departmentId}">${d.departmentName}</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

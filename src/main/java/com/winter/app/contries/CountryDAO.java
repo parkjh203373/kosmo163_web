@@ -9,7 +9,7 @@ import com.winter.app.util.DBConnection;
 
 public class CountryDAO {
 	
-	public void detail(String countryId) throws Exception {
+	public CountryDTO detail(String countryId) throws Exception {
 		DBConnection connection = new DBConnection();
 		Connection con = connection.getConnection();
 		
@@ -21,17 +21,19 @@ public class CountryDAO {
 		
 		ResultSet rs = st.executeQuery();
 		
+		CountryDTO dto = null;
 		if(rs.next()) {
-			String id = rs.getString("COUNTRY_ID");
-			String name = rs.getString("COUNTRY_NAME");
-			System.out.println(id + " : " + name);
-		}else {
-			System.out.println("나라가 없다");
+			dto = new CountryDTO();
+			dto.setCountryId(rs.getString("COUNTRY_ID"));
+			dto.setCountryName(rs.getString("COUNTRY_NAME"));
+
 		}
 		
 		rs.close();
 		st.close();
 		con.close();
+		
+		return dto;
 		
 	}
 	
