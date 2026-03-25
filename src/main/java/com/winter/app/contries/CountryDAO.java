@@ -3,6 +3,7 @@ package com.winter.app.contries;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import com.winter.app.util.DBConnection;
 
@@ -34,7 +35,7 @@ public class CountryDAO {
 		
 	}
 	
-	public void list() throws Exception {
+	public ArrayList<CountryDTO> list() throws Exception {
 		DBConnection connection = new DBConnection();
 		Connection con = connection.getConnection();
 		
@@ -44,16 +45,25 @@ public class CountryDAO {
 		
 		ResultSet rs = st.executeQuery();
 		
+		ArrayList<CountryDTO> ar = new ArrayList<>();
+		
 		while(rs.next()) {
+			CountryDTO dto = new CountryDTO();
 			String id = rs.getString("COUNTRY_ID");
 			String name = rs.getString("COUNTRY_NAME");
 			
-			System.out.println(id + " : " + name);
+			dto.setCountryId(id);
+			dto.setCountryName(name);
+			
+			ar.add(dto);
+			
 		}
 		
 		rs.close();
 		st.close();
 		con.close();
+		
+		return ar;
 		
 	}
 
