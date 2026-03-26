@@ -11,6 +11,9 @@
 		<h3>나라 리스트</h3>
 		
 		<div>
+			<a href="/country/create">나라등록</a>
+		</div>
+		<div>
 			<table>
 				<thead>
 					<tr>

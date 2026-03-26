@@ -14,6 +14,30 @@ public class DepartmentDAO {
 		this.connection = new DBConnection();
 	}
 	
+	public int create(DepartmentDTO dto) throws Exception {
+		Connection con = connection.getConnection();
+		
+		String sql = """
+					INSERT INTO DEPARTMENTS VALUES 
+					(DEPARTMENTS_SEQ.NEXTVAL, ?, ?, ?)
+					""";
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setString(1, dto.getDepartmentName());
+		st.setInt(2, dto.getManagerId());
+		st.setInt(3, dto.getLocationId());
+		
+		int result = st.executeUpdate();
+		
+		System.out.println(result);
+		
+		st.close();
+		con.close();
+		
+		return result;
+		
+	}
+	
 	public DepartmentDTO detail(int departmentId) throws Exception {
 		Connection con = connection.getConnection();
 		
@@ -48,7 +72,7 @@ public class DepartmentDAO {
 		Connection con = connection.getConnection();
 		
 		//2. 쿼리문 작성
-		String sql = "SELECT * FROM DEPARTMENTS";
+		String sql = "SELECT * FROM DEPARTMENTS ORDER BY DEPARTMENT_ID DESC";
 		
 		//3. 쿼리문 전송
 		PreparedStatement st = con.prepareStatement(sql);

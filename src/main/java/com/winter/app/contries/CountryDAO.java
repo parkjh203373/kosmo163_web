@@ -5,9 +5,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.winter.app.departments.DepartmentDTO;
 import com.winter.app.util.DBConnection;
 
 public class CountryDAO {
+	
+	public int create(CountryDTO dto) throws Exception {
+		DBConnection connection = new DBConnection();
+		Connection con = connection.getConnection();
+		
+		String sql = "INSERT INTO COUNTRIES VALUES (?, ?, ?)";
+		
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setString(1, dto.getCountryId());
+		st.setString(2, dto.getCountryName());
+		st.setInt(3, dto.getRegionId());
+		
+		int result = st.executeUpdate();
+		
+		System.out.println(result);
+		
+		st.close();
+		con.close();
+		
+		return result;
+		
+	}
 	
 	public CountryDTO detail(String countryId) throws Exception {
 		DBConnection connection = new DBConnection();
