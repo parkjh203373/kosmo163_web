@@ -1,4 +1,4 @@
-package com.winter.app.departments;
+package com.winter.app.community;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -9,16 +9,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class DepartmentUpdateController
+ * Servlet implementation class CommunityUpdateController
  */
-@WebServlet("/dept/update")
-public class DepartmentUpdateController extends HttpServlet {
+@WebServlet("/comm/update")
+public class CommunityUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepartmentUpdateController() {
+    public CommunityUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,18 +27,18 @@ public class DepartmentUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("departmentId");
-		int n = Integer.parseInt(id);
+		String num = request.getParameter("num");
+		int n = Integer.parseInt(num);
 		
-		DepartmentDAO dao = new DepartmentDAO();
+		CommunityDAO dao = new CommunityDAO();
 		try {
-			DepartmentDTO dto = dao.detail(n);
+			CommunityDTO dto = dao.detail(n);
 			request.setAttribute("dto", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/dept/update.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/comm/update.jsp");
 		view.forward(request, response);
 	}
 
@@ -46,27 +46,23 @@ public class DepartmentUpdateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("departmentId");
-		String name = request.getParameter("departmentName");
-		String mid = request.getParameter("managerId");
-		String lid = request.getParameter("locationId");
+		CommunityDAO dao = new CommunityDAO();
+		CommunityDTO dto = new CommunityDTO();
 		
-		DepartmentDAO dao = new DepartmentDAO();
-		DepartmentDTO dto = new DepartmentDTO();
-		dto.setDepartmentId(Integer.parseInt(id));
-		dto.setDepartmentName(name);
-		dto.setManagerId(Integer.parseInt(mid));
-		dto.setLocationId(Integer.parseInt(lid));
+		dto.setNum(Long.parseLong(request.getParameter("num")));
+		dto.setTitle(request.getParameter("title"));
+		dto.setName(request.getParameter("name"));
+		dto.setContents(request.getParameter("contents"));
+		dto.setStar(Integer.parseInt(request.getParameter("star")));
 		
 		try {
 			int result = dao.update(dto);
 			if(result>0) {
-				response.sendRedirect("/dept/list");
+				response.sendRedirect("/comm/list");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 }

@@ -8,25 +8,27 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<h3>나라 리스트</h3>
+		<h3>전달 사항 리스트</h3>
 		
 		<div>
-			<a href="/country/create">나라등록</a>
+			<a href="/comm/create">전달 사항 등록</a>
 		</div>
 		<div>
 			<table>
 				<thead>
 					<tr>
-						<th>나라 아이디</th>
-						<th>나라 이름</th>
+						<th>글 번호</th>
+						<th>제목</th>
+						<th>작성자</th>
 					</tr>
-				</thead>
-				
+				<thead>	
+			
 				<tbody>
 					<c:forEach items="${list}" var="c">
 						<tr>
-							<td>${c.countryId}</td>
-							<td><a href="/country/detail?countryId=${c.countryId}">${c.countryName}</a></td>
+							<td>${c.num}</td>
+							<td><a href="/comm/detail?num=${c.num}">${c.title}</a></td>
+							<td>${c.name}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

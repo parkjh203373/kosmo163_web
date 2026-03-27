@@ -1,4 +1,4 @@
-package com.winter.app.contries;
+package com.winter.app.community;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -7,21 +7,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import com.winter.app.departments.DepartmentDAO;
-import com.winter.app.departments.DepartmentDTO;
+import java.sql.Date;
 
 /**
- * Servlet implementation class CountryCreateController
+ * Servlet implementation class CommunityCreateController
  */
-@WebServlet("/country/create")
-public class CountryCreateController extends HttpServlet {
+@WebServlet("/comm/create")
+public class CommunityCreateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CountryCreateController() {
+    public CommunityCreateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +28,7 @@ public class CountryCreateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/country/create.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/comm/create.jsp");
 		view.forward(request, response);
 	}
 
@@ -38,26 +36,27 @@ public class CountryCreateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("countryId");
-		String name = request.getParameter("countryName");
-		String rid = request.getParameter("regionId");
+		CommunityDAO dao = new CommunityDAO();
+		CommunityDTO dto = new CommunityDTO();
 		
-		CountryDAO dao = new CountryDAO();
-		CountryDTO dto = new CountryDTO();
-		dto.setCountryId(id);
-		dto.setCountryName(name);
-		dto.setRegionId(Integer.parseInt(rid));
+		dto.setTitle(request.getParameter("title"));
+		dto.setName(request.getParameter("name"));
+		dto.setContents(request.getParameter("contents"));
+		dto.setStar(Integer.parseInt(request.getParameter("star")));
 		
 		try {
 			int result = dao.create(dto);
 			if(result>0) {
-				response.sendRedirect("/country/list");
+				response.sendRedirect("/comm/list");
 			}else {
-				System.out.println("오류 발생");
+				RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/comm/create.jsp");
+				view.forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 }

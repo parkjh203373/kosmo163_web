@@ -1,4 +1,4 @@
-package com.winter.app.departments;
+package com.winter.app.community;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -7,20 +7,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
- * Servlet implementation class DepartmentController
+ * Servlet implementation class CommunityController
  */
-@WebServlet("/dept/list")
-public class DepartmentController extends HttpServlet {
+@WebServlet("/comm/list")
+public class CommunityController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DepartmentController() {
+    public CommunityController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +28,16 @@ public class DepartmentController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println(request.getMethod());
-		System.out.println(request.getRemoteAddr());
-		System.out.println(request.getRequestURL());
-		
-		DepartmentDAO dao = new DepartmentDAO();
+		CommunityDAO dao = new CommunityDAO();
 		
 		try {
-			ArrayList<DepartmentDTO> ar = dao.list();
+			ArrayList<CommunityDTO> ar = dao.list();
 			request.setAttribute("list", ar);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/dept/list.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/comm/list.jsp");
 		view.forward(request, response);
 	}
 

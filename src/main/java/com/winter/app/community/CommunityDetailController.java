@@ -1,5 +1,6 @@
-package com.winter.app.contries;
+package com.winter.app.community;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,20 +8,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import com.winter.app.departments.DepartmentDAO;
-import com.winter.app.departments.DepartmentDTO;
-
 /**
- * Servlet implementation class CountryDeleteController
+ * Servlet implementation class CommunityDetailController
  */
-@WebServlet("/country/delete")
-public class CountryDeleteController extends HttpServlet {
+@WebServlet("/comm/detail")
+public class CommunityDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CountryDeleteController() {
+    public CommunityDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +27,19 @@ public class CountryDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("countryId");
-		CountryDAO dao = new CountryDAO();
-		CountryDTO dto = new CountryDTO();
-		
-		dto.setCountryId(id);
+		CommunityDAO dao = new CommunityDAO();
+		String num = request.getParameter("num");
+		long n = Long.parseLong(num);
 		try {
-			int result = dao.delete(dto);
-			if(result>0) {
-				response.sendRedirect("/country/list");
-			}else {
-				response.sendRedirect("/country/detail?countryId=" + id);
-			}
+			CommunityDTO dto = dao.detail(n);
+			request.setAttribute("detail", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/comm/detail.jsp");
+		view.forward(request, response);
+		
 	}
 
 	/**
