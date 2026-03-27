@@ -14,6 +14,50 @@ public class DepartmentDAO {
 		this.connection = new DBConnection();
 	}
 	
+	public int update(DepartmentDTO dto) throws Exception {
+		Connection con = connection.getConnection();
+		
+		String sql = """
+					UPDATE DEPARTMENTS 
+					SET DEPARTMENT_NAME=?, MANAGER_ID=?, LOCATION_ID=?
+					WHERE DEPARTMENT_ID=?
+					""";
+		
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setString(1, dto.getDepartmentName());
+		st.setInt(2, dto.getManagerId());
+		st.setInt(3, dto.getLocationId());
+		st.setInt(4, dto.getDepartmentId());
+		
+		int result = st.executeUpdate();
+		
+		st.close();
+		con.close();
+		
+		return result;		
+		
+	}
+	
+	public int delete(DepartmentDTO dto) throws Exception {
+		Connection con = connection.getConnection();
+		
+		String sql = "DELETE DEPARTMENTS WHERE DEPARTMENT_ID = ?";
+		
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setInt(1, dto.getDepartmentId());
+		
+		int result = st.executeUpdate();
+		
+		st.close();
+		con.close();
+		
+		return result;
+		
+		
+	}
+	
 	public int create(DepartmentDTO dto) throws Exception {
 		Connection con = connection.getConnection();
 		

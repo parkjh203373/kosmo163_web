@@ -10,6 +10,25 @@ import com.winter.app.util.DBConnection;
 
 public class CountryDAO {
 	
+	public int delete(CountryDTO dto) throws Exception {
+		DBConnection connection = new DBConnection();
+		Connection con = connection.getConnection();
+		
+		String sql = "DELETE COUNTRIES WHERE COUNTRY_ID = ?";
+		
+		PreparedStatement st = con.prepareStatement(sql);
+		
+		st.setString(1, dto.getCountryId());
+		
+		int result = st.executeUpdate();
+		
+		st.close();
+		con.close();
+		
+		return result;
+		
+	}
+	
 	public int create(CountryDTO dto) throws Exception {
 		DBConnection connection = new DBConnection();
 		Connection con = connection.getConnection();

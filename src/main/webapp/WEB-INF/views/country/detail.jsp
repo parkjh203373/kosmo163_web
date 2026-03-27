@@ -11,5 +11,10 @@
 	
 	<h4>${detail.countryId}</h4>
 	<h4>${detail.countryName}</h4>
+	<a href="/country/delete?countryId=${detail.countryId}">삭제</a>
+	<form action="/country/delete" method="get">
+		<input type="hidden" name="countryId" readonly value="${detail.countryId}">
+		<button>DELETE</button>
+	</form>
 </body>
 </html>
