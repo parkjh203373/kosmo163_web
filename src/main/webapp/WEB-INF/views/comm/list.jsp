@@ -12,6 +12,7 @@
 		
 		<div>
 			<a href="/comm/create">전달 사항 등록</a>
+			<a href="/home">홈으로</a>
 		</div>
 		<div>
 			<table>

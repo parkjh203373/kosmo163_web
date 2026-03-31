@@ -28,7 +28,6 @@
 				<input type="text" name="star">
 			</div>
 			<button>등록</button>
-			<input type="submit" value="create">
 					
 		</form>
 	</body>

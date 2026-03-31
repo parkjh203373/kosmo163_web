@@ -18,5 +18,6 @@
 
 		<a href="/comm/update?num=${detail.num}">수정</a>
 		<a href="/comm/delete?num=${detail.num}">삭제</a>
+		<a href="/comm/list">뒤로</a>
 	</body>
 </html>

@@ -28,7 +28,7 @@
 				<label>중요도</label>
 				<input type="text" value="${dto.star}" name="star">
 			</div>
-			<button>button</button>
+			<button>수정</button>
 					
 		</form>
 	</body>
