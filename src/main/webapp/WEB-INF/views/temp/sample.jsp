@@ -19,14 +19,9 @@
                 </div>
                 
                 <div class="row gx-5 justify-content-center">
-					<h5>국가 ID : ${detail.countryId}</h5>
-					<h5>국가 이름 : ${detail.countryName}</h5>
-					<h5>지역 코드 : ${detail.regionId}</h5>
-					<div class="text-start">
-					<a class="btn btn-outline-primary" href="/country/delete?countryId=${detail.countryId}" role="button" style="width: 90px;">국가 삭제</a>
-					</div>
-
-				</div>        
+                	페이지 내용
+                
+                </div>        
 			</div>
 		</section>		
 	</main>

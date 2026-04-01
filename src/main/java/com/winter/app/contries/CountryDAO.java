@@ -69,6 +69,7 @@ public class CountryDAO {
 			dto = new CountryDTO();
 			dto.setCountryId(rs.getString("COUNTRY_ID"));
 			dto.setCountryName(rs.getString("COUNTRY_NAME"));
+			dto.setRegionId(rs.getInt("REGION_ID"));
 
 		}
 		
